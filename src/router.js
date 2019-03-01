@@ -25,6 +25,22 @@ export default new Router({
             path: '/search',
             // name: "search",
             component: () => import('./views/Search')
-        }
+        },
+        {
+            path: '/sign-in',
+            component: () => import('./views/SignIn')
+        },
+        {
+            path: '/sign-up',
+            component: () => import('./views/SignUp')
+        },
+        {
+            path: '/coding',
+            component: () => import('./views/Coding')
+        },
+        {
+            path: '/coding/:title',
+            component: () => import('./views/Coding')
+        },
     ]
 })
