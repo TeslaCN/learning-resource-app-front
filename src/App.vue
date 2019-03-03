@@ -10,7 +10,7 @@
                         |
                         <router-link to="/search">Search</router-link>
                         |
-                        <router-link to="/coding">Coding</router-link>
+                        <router-link to="/problem">Problem</router-link>
                         <span v-if="!$store.state.userInfo">
                             |
                             <router-link to="/sign-in">Sign In</router-link>

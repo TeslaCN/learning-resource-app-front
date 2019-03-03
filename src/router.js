@@ -35,11 +35,11 @@ export default new Router({
             component: () => import('./views/SignUp')
         },
         {
-            path: '/coding',
-            component: () => import('./views/Coding')
+            path: '/problem',
+            component: () => import('./views/Problem')
         },
         {
-            path: '/coding/:title',
+            path: '/problem/:title',
             component: () => import('./views/Coding')
         },
     ]

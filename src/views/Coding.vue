@@ -1,27 +1,46 @@
 <template>
-    <el-container v-if="$route.params.title">
-        <el-header>
-            <h1>{{$route.params.title}}</h1>
-        </el-header>
+    <el-container>
+        <!--<el-header>-->
+            <!--<h1>{{problemTitle}}</h1>-->
+        <!--</el-header>-->
         <el-main>
-            <code-editor></code-editor>
-        </el-main>
-    </el-container>
-    <el-container v-else>
-        <el-main>
-            <problem-list></problem-list>
+            <el-row>
+                <h1>{{problemTitle}}</h1>
+            </el-row>
+            <el-row>
+                <p>{{problemDescription}}</p>
+            </el-row>
+            <el-row>
+                <code-editor></code-editor>
+            </el-row>
         </el-main>
     </el-container>
 </template>
 
 <script>
     import codeEditor from '@/components/CodeEditor'
-    import problemList from '@/components/ProblemList'
+    import codingService from '@/service/coding-service'
 
     export default {
         name: "Coding",
-        components: {codeEditor, problemList},
+        components: {codeEditor},
+        computed: {
+            problemTitle() {
+                return this.$route.params.title;
+            }
+        },
+        data() {
+            return {
+                problemDescription: '1+1=2',
 
+            }
+        },
+        mounted() {
+            let title = this.problemTitle;
+            codingService.getProblem(title, response => {
+
+            });
+        }
     }
 </script>
 

@@ -1,6 +1,6 @@
 <template>
     <div>
-        {{userInfo.username}}
+        {{userInfo ? userInfo.username : ''}}
     </div>
 </template>
 
