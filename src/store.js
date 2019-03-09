@@ -9,7 +9,11 @@ export default new Vuex.Store({
         userInfo: null,
         token: '',
     },
-    getters: {},
+    getters: {
+        isSignedIn(state) {
+            return state.userInfo && state.token;
+        },
+    },
     mutations: {
         updateToken(state, payload) {
             state.token = payload.token;
@@ -17,6 +21,7 @@ export default new Vuex.Store({
         },
         updateUserInfo(state, payload) {
             state.userInfo = payload.userInfo;
+            persist.persistUserInfo();
         }
     },
     actions: {},

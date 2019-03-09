@@ -17,13 +17,15 @@ export default {
     persistToken() {
         let token = store.state.token;
         if (token) {
+            console.log('Persist Token.');
             window.localStorage.setItem('token', token);
         }
     },
     restoreToken() {
         let token = window.localStorage.getItem('token');
         if (token) {
-            store.commit('updateToken', token);
+            console.log('Token found.');
+            store.commit('updateToken', {token});
         }
     }
 }

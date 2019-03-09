@@ -5,6 +5,7 @@ import store from './store'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import ace from 'ace-builds'
+import persist from '@/util/persist'
 
 Vue.config.productionTip = true
 
@@ -21,6 +22,8 @@ new Vue({
         },
     },
     mounted() {
+        persist.restoreToken();
+        persist.restoreUserInfo();
         this.checkLogin();
     },
     watch: {

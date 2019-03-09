@@ -36,7 +36,18 @@
         methods: {
             onSubmit() {
                 let form = this.form;
-                userService.signIn(form.username, form.password, form.remember);
+                userService.signIn(form, response => {
+                    if (response.headers.hasOwnProperty('token')) {
+                        let token = response.headers.token;
+                        this.$store.commit('updateToken', {token});
+                        let encodedPayload = token.substring(token.indexOf('.') + 1, token.lastIndexOf('.'));
+                        let payload = JSON.parse(atob(encodedPayload));
+                        if (payload.USER) {
+                            let userInfo = payload.USER;
+                            this.$store.commit('updateUserInfo', {userInfo});
+                        }
+                    }
+                });
             }
         }
     }

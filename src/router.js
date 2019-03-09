@@ -42,5 +42,13 @@ export default new Router({
             path: '/problem/:title',
             component: () => import('./views/Coding')
         },
+        {
+            path: '/publish-resource',
+            component: () => import('./views/PublishResource')
+        },
+        {
+            path: '/resource/:resourceId',
+            // component: () => import('./')
+        },
     ]
 })
