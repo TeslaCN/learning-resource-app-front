@@ -45,7 +45,10 @@ export default {
 
         if (store.state.token) {
             let token = store.state.token;
-            Object.assign(config, {token});
+            if (!config.headers) {
+                config.headers = {};
+            }
+            config.headers.Authorization = token;
         }
         axios(config).then(response => {
             succeed(response);

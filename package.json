@@ -8,7 +8,11 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "echarts": "^4.1.0",
+    "echarts-wordcloud": "^1.1.3",
     "element-ui": "^2.4.11",
+    "plupload": "^2.3.6",
+    "ueditor": "^1.2.3",
     "vue": "^2.5.21",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"

@@ -11,7 +11,7 @@ export default new Vuex.Store({
     },
     getters: {
         isSignedIn(state) {
-            return state.userInfo && state.token;
+            return state.userInfo !== null && state.token !== '';
         },
     },
     mutations: {
@@ -22,6 +22,11 @@ export default new Vuex.Store({
         updateUserInfo(state, payload) {
             state.userInfo = payload.userInfo;
             persist.persistUserInfo();
+        },
+        signOut(state) {
+            state.userInfo = null;
+            state.token = '';
+            persist.removeAll();
         }
     },
     actions: {},

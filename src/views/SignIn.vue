@@ -1,5 +1,5 @@
 <template>
-    <el-container>
+    <el-container v-loading="loading">
         <el-main>
             <el-form ref="form" :model="form" label-width="100px">
                 <el-form-item label="账号">
@@ -30,11 +30,13 @@
                     username: '',
                     password: '',
                     remember: false,
-                }
+                },
+                loading: false,
             }
         },
         methods: {
             onSubmit() {
+                this.loading = true;
                 let form = this.form;
                 userService.signIn(form, response => {
                     if (response.headers.hasOwnProperty('token')) {
@@ -46,6 +48,8 @@
                             let userInfo = payload.USER;
                             this.$store.commit('updateUserInfo', {userInfo});
                         }
+                        this.loading = false;
+                        this.$router.back();
                     }
                 });
             }

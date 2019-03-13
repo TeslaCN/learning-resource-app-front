@@ -1,23 +1,10 @@
 <template>
     <el-container>
         <el-col :span="18">
-            <router-link to="/">Home</router-link>
-            |
-            <router-link to="/about">About</router-link>
-            |
-            <router-link to="/search">Search</router-link>
-            |
-            <router-link to="/problem">Problem</router-link>
-            <span v-if="!$store.state.userInfo">
-                            |
-                            <router-link to="/sign-in">Sign In</router-link>
-                            |
-                            <router-link to="/sign-up">Sign Up</router-link>
-                        </span>
-            <span v-else>
-                            |<router-link to="/publish-resource">Publish Resource</router-link>
-                            |<router-link to="/sign-out">Sign Out</router-link>
-                        </span>
+            <el-tabs v-model="activedTab" @tab-click="handleClick">
+                <el-tab-pane v-for="tab in commonTabs" :label="tab.label" :name="tab.name"></el-tab-pane>
+                <el-tab-pane v-for="tab in (isSignedIn ? signedTabs : unsignedTabs)" :label="tab.label" :name="tab.name"></el-tab-pane>
+            </el-tabs>
         </el-col>
         <el-col :span="6">
             <user-bar></user-bar>
@@ -31,6 +18,33 @@
     export default {
         name: "Navigate",
         components: {userBar},
+        data() {
+            return {
+                commonTabs: [
+                    {label: '主页', name: '/'},
+                    {label: '搜索', name: '/search'},
+                ],
+                unsignedTabs: [
+                    {label: '注册', name: '/sign-up'},
+                    {label: '登录', name: '/sign-in'},
+                ],
+                signedTabs: [
+                    {label: '编程', name: '/problem'},
+                    {label: '发布', name: '/publish-resource'},
+                ],
+                activedTab: '/',
+            }
+        },
+        computed: {
+            isSignedIn() {
+                return this.$store.getters.isSignedIn;
+            },
+        },
+        methods: {
+            handleClick(tab, event) {
+                this.$router.push(this.activedTab);
+            }
+        },
     }
 </script>
 

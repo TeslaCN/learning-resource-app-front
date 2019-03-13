@@ -27,5 +27,9 @@ export default {
             console.log('Token found.');
             store.commit('updateToken', {token});
         }
+    },
+    removeAll() {
+        window.localStorage.removeItem('token');
+        window.localStorage.removeItem('userInfo');
     }
 }

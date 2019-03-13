@@ -5,6 +5,6 @@ export default {
         ajax.get('/search/completion-suggestions', {prefix}, done);
     },
     getMatch(text, done, page = 1, size = 10) {
-        ajax.get('/search/match', {text, page: --page, size: pageSize}, done);
+        ajax.get('/search/match', {text, page: --page, size}, done);
     }
 }
