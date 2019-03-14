@@ -2,8 +2,8 @@
     <el-container>
         <el-col :span="18">
             <el-tabs v-model="activedTab" @tab-click="handleClick">
-                <el-tab-pane v-for="tab in commonTabs" :label="tab.label" :name="tab.name"></el-tab-pane>
-                <el-tab-pane v-for="tab in (isSignedIn ? signedTabs : unsignedTabs)" :label="tab.label" :name="tab.name"></el-tab-pane>
+                <el-tab-pane v-for="tab in commonTabs" :key="tab.name" :label="tab.label"
+                             :name="tab.name"></el-tab-pane>
             </el-tabs>
         </el-col>
         <el-col :span="6">
@@ -23,14 +23,8 @@
                 commonTabs: [
                     {label: '主页', name: '/'},
                     {label: '搜索', name: '/search'},
-                ],
-                unsignedTabs: [
-                    {label: '注册', name: '/sign-up'},
-                    {label: '登录', name: '/sign-in'},
-                ],
-                signedTabs: [
-                    {label: '编程', name: '/problem'},
-                    {label: '发布', name: '/publish-resource'},
+                    {label: '编程', name: '/problem', requireSignIn: true},
+                    {label: '发布', name: '/publish-resource', requireSignIn: true},
                 ],
                 activedTab: '/',
             }
