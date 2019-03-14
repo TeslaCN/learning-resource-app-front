@@ -2,8 +2,11 @@
     <div>
         <div id="editor"></div>
         <modal v-show="isModalVisible" @close="isModalVisible = false">
-            <div slot="header">设置插入图片像素</div>
+            <div slot="header">
+                <span>设置插入图片像素</span>
+            </div>
             <div slot="body" v-loading="loadingImage">
+                <el-switch v-model="autoOrient" inactive-text="不旋转" active-text="自动旋转"></el-switch>
                 <el-slider v-model="scale" :min="1" show-input></el-slider>
                 <el-input label="宽度" v-model="width">
                     <div slot="append">像素</div>
@@ -11,7 +14,10 @@
                 <el-input label="高度" v-model="height">
                     <div slot="append">像素</div>
                 </el-input>
-                <img v-if="file" :src="file.url" :style="{width: width + 'px', height: height + 'px', maxHeight: '100%'}">
+                <div style="text-align: center">
+                    <img v-if="file" :src="fileUrl"
+                         :style="{width: width + 'px', height: height + 'px', maxHeight: maxHeight + 'px', maxWidth: maxWidth + 'px'}">
+                </div>
             </div>
             <div slot="footer">
                 <el-button type="primary" @click="confirmAdd">插入</el-button>
@@ -48,6 +54,38 @@
                 file: null,
                 loadingImage: false,
                 scale: 100,
+                autoOrient: true,
+                autoOrientSuffix: '?x-oss-process=style/auto-orient',
+            }
+        },
+        computed: {
+            maxWidth() {
+                return document.body.clientWidth * 0.9;
+            },
+            maxHeight() {
+                return document.body.clientHeight * 0.8;
+            },
+            sizeExceed() {
+                return this.width > this.maxWidth || this.height > this.maxHeight;
+            },
+            fileUrl() {
+                return this.file ? this.file.url + (this.autoOrient ? this.autoOrientSuffix : '') : '';
+            },
+            finalHtml() {
+                return `<img src="${this.fileUrl}" style="width: ${this.width}px; height: ${this.height}px;">`;
+            },
+            allowMax() {
+                return this.maxHeight / this.maxWidth > this.originHeight / this.originWidth
+                    ?
+                    {
+                        width: this.maxWidth,
+                        height: this.originHeight * (this.maxWidth / this.originWidth),
+                    }
+                    :
+                    {
+                        width: this.originWidth * (this.maxHeight / this.originHeight),
+                        height: this.maxHeight,
+                    }
             }
         },
         watch: {
@@ -55,6 +93,9 @@
                 let rate = this.scale / 100;
                 this.width = Math.round(this.originWidth * rate);
                 this.height = Math.round(this.originHeight * rate);
+            },
+            autoOrient() {
+                this.onAdd(this.file);
             }
         },
         methods: {
@@ -71,10 +112,13 @@
                     this.isModalVisible = true;
                     this.loadingImage = true;
                     let img = new Image();
-                    img.src = file.url;
+                    img.src = this.fileUrl;
                     img.onload = () => {
-                        this.width = this.originWidth = img.width;
-                        this.height = this.originHeight = img.height;
+                        this.originWidth = img.width;
+                        this.originHeight = img.height;
+                        this.height = this.allowMax.height;
+                        this.width = this.allowMax.width;
+                        this.scale = this.height / this.originHeight * 100;
                         this.loadingImage = false;
                     };
                 } else {
@@ -84,7 +128,7 @@
             },
             confirmAdd() {
                 this.isModalVisible = false;
-                let html = `<img src="${this.file.url}" style="width: ${this.width}px; height: ${this.height}px;">`
+                let html = this.finalHtml;
                 this.editor.setContent(html, true);
             },
         },
