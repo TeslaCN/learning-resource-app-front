@@ -17,21 +17,28 @@
 </template>
 
 <script>
+    import resourceService from '@/service/resource-service'
+
     export default {
         data() {
             return {
-                options: [{
-                    value: 'HTML',
-                    label: 'HTML'
-                }, {
-                    value: 'CSS',
-                    label: 'CSS'
-                }, {
-                    value: 'JavaScript',
-                    label: 'JavaScript'
-                }],
-                tags: []
+                options: [],
+                tags: [],
             }
+        },
+        methods: {
+            fetchTags() {
+                resourceService.getAllTags(response => {
+                    let tags = response.data.body;
+                    let tagObjects = tags.map(t => {
+                        return {value: t, label: t}
+                    });
+                    this.options.push(...tagObjects);
+                });
+            },
+        },
+        mounted() {
+            this.fetchTags();
         }
     }
 </script>

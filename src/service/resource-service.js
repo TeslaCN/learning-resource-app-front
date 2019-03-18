@@ -10,6 +10,9 @@ export default {
     getTags(done) {
         ajax.get('/tags', undefined, done);
     },
+    getAllTags(done) {
+        ajax.get('/all-tags', undefined, done);
+    },
     getFiles(dateString, done) {
         ajax.get('/oss/list', {prefix: dateString}, done);
     },

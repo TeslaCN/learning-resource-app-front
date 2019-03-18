@@ -28,23 +28,41 @@ export default new Router({
         },
         {
             path: '/sign-in',
-            component: () => import('./views/SignIn')
+            component: () => import('./views/SignIn'),
+            meta: {
+                requireUnsigned: true
+            },
         },
         {
             path: '/sign-up',
-            component: () => import('./views/SignUp')
+            component: () => import('./views/SignUp'),
+            meta: {
+                requireUnsigned: true
+            },
         },
         {
             path: '/problem',
-            component: () => import('./views/Problem')
+            component: () => import('./views/Problem'),
+            meta: {
+                requireSignIn: true,
+                roles: ['ROLE_USER'],
+            }
         },
         {
             path: '/problem/:title',
-            component: () => import('./views/Coding')
+            component: () => import('./views/Coding'),
+            meta: {
+                requireSignIn: true,
+                roles: ['ROLE_USER'],
+            }
         },
         {
             path: '/publish-resource',
-            component: () => import('./views/PublishResource')
+            component: () => import('./views/PublishResource'),
+            meta: {
+                requireSignIn: true,
+                roles: ['ROLE_USER'],
+            }
         },
         {
             path: '/resource/:resourceId',
@@ -52,7 +70,14 @@ export default new Router({
         },
         {
             path: '/sign-out',
-            component: () => import('./views/SignOut')
+            component: () => import('./views/SignOut'),
+            meta: {
+                requireSignIn: true,
+            }
+        },
+        {
+            path: '/access-denied',
+            component: () => import('./views/AccessDenied'),
         }
     ]
 })

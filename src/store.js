@@ -13,6 +13,9 @@ export default new Vuex.Store({
         isSignedIn(state) {
             return state.userInfo !== null && state.token !== '';
         },
+        userRoles(state) {
+            return state.userInfo ? state.userInfo.authorities.map(a => a.authority) : [];
+        }
     },
     mutations: {
         updateToken(state, payload) {
