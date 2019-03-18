@@ -5,6 +5,7 @@
             placeholder="请输入内容"
             @select="handleSelect"
             :select-when-unmatched="true"
+            :trigger-on-focus="false"
             clearable
     ></el-autocomplete>
 </template>
