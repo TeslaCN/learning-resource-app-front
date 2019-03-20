@@ -20,18 +20,18 @@
             return {
                 resource: {
                     title: '',
-                    content: '',
-                    tags: [],
+                    content: [''],
+                    tag: [],
                 },
             }
         },
         methods: {
             onTagsChanged(tags) {
-                this.tags = tags;
-                console.log(this.tags);
+                this.resource.tag = tags;
+                console.log(this.resource.tag);
             },
             onSubmit(data) {
-                this.resource.content = data.content;
+                this.resource.content[0] = data.content;
                 console.log(data);
                 resourceService.postResource(this.resource, response => {
 

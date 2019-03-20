@@ -5,7 +5,14 @@ export default {
         ajax.get(`/resource/${resourceId}`, null, done);
     },
     postResource(resource, done) {
-        ajax.post('/resource', resource, done);
+        // ajax.post('/resource', resource, done);
+        let options = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: JSON.stringify(resource),
+        };
+        ajax.request('POST', '/resource', null, null, options, done);
     },
     getTags(done) {
         ajax.get('/tags', undefined, done);

@@ -66,7 +66,7 @@ export default new Router({
         },
         {
             path: '/resource/:resourceId',
-            // component: () => import('./')
+            component: () => import('./views/Resource')
         },
         {
             path: '/sign-out',
