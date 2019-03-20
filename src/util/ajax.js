@@ -18,7 +18,7 @@ export default {
     }) {
         let transformRequest = [
             data => Object.keys(data)
-                .map(key => encodeURI(key + '=' + data[key]))
+                .map(key => `${encodeURI(key)}=${encodeURIComponent(data[key])}`)
                 .reduce((a, b) => a + '&' + b)
         ];
         this.request('POST', url, null, data, {transformRequest}, succeed, rejected, finallyMethod);

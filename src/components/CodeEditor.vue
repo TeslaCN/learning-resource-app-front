@@ -1,7 +1,7 @@
 <template>
     <div>
         <div ref="ace"></div>
-        <el-input v-model="entryMethod"></el-input>
+        <el-input v-model="entryMethod" style="display: none;"></el-input>
         <el-button type="primary" @click="submit">提交</el-button>
     </div>
 </template>

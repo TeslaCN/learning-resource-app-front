@@ -1,5 +1,8 @@
 <template>
     <el-container>
+        <el-header>
+            <router-link to="/publish-problem"></router-link>
+        </el-header>
         <el-main>
             <problem-list></problem-list>
         </el-main>

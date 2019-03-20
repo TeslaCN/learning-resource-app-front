@@ -65,6 +65,14 @@ export default new Router({
             }
         },
         {
+            path: '/publish-problem',
+            // component: () => import(''),
+            meta: {
+                requireSignIn: true,
+                roles: ['ROLE_ADMIN'],
+            }
+        },
+        {
             path: '/resource/:resourceId',
             component: () => import('./views/Resource')
         },
