@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <!--<img alt="Vue logo" src="../assets/logo.png">-->
-        <div id="wordcloud" :style="{width: '600px', height: '300px'}">
+        <div id="wordcloud" :style="{width: maxWidth + 'px', height: maxHeight + 'px'}">
         </div>
     </div>
 </template>
@@ -22,7 +22,15 @@
         },
         methods: {
             onClick(param) {
-                console.log(param.name);
+                this.$router.push(`/search/${param.name}`);
+            },
+        },
+        computed: {
+            maxWidth() {
+                return (document.body.clientWidth || document.body.offsetWidth) * 0.9;
+            },
+            maxHeight() {
+                return (document.body.clientHeight || document.body.offsetHeight) * 0.9;
             },
         },
         mounted() {
@@ -131,6 +139,10 @@
                         //         emphasis: {}
                         //     }
                         // }]
+                        autoSize: {
+                            enable: true,
+                            minSize: 6,
+                        },
                         data,
                     }]
                 };
@@ -141,3 +153,10 @@
         },
     }
 </script>
+
+<style scoped>
+    .home {
+        height: 100%;
+        width: 100%;
+    }
+</style>

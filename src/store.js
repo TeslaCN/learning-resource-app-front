@@ -15,6 +15,9 @@ export default new Vuex.Store({
         },
         userRoles(state) {
             return state.userInfo ? state.userInfo.authorities.map(a => a.authority) : [];
+        },
+        userId(state) {
+            return state.userInfo ? state.userInfo.id : null;
         }
     },
     mutations: {

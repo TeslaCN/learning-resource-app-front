@@ -1,7 +1,7 @@
 <template>
     <el-container>
         <el-main>
-            <el-input label="标题" v-model="resource.title"></el-input>
+            <el-input label="标题" v-model="resource.title" placeholder="在此输入文章标题"></el-input>
             <tag-finder @change="onTagsChanged"></tag-finder>
             <text-editor @submit="onSubmit"></text-editor>
         </el-main>

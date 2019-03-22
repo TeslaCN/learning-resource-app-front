@@ -1,8 +1,6 @@
 <template>
-    <div>
+    <div v-if="code">
         <div ref="ace"></div>
-        <el-input v-model="entryMethod" style="display: none;"></el-input>
-        <el-button type="primary" @click="submit">提交</el-button>
     </div>
 </template>
 
@@ -14,34 +12,17 @@
     import 'ace-builds/src-noconflict/mode-java'
     import 'ace-builds/src-noconflict/snippets/java'
     import 'ace-builds/src-noconflict/ext-error_marker'
-    import 'ace-builds/src-noconflict/keybinding-vim'
-    import codingService from '@/service/coding-service'
 
     export default {
-        name: "CodeEditor",
+        name: "CodeView",
         props: {
-            language: String,
+            code: String,
         },
         data() {
             return {
                 aceEditor: null,
                 themePath: 'ace/theme/chrome',
                 modePath: 'ace/mode/java',
-                codeTemplate: '',
-                entryMethod: '',
-            }
-        },
-        computed: {
-            title() {
-                return this.$route.params.title;
-            },
-        },
-
-        methods: {
-            submit() {
-                let code = this.aceEditor.getValue();
-                let entryMethod = this.entryMethod;
-                this.$emit('submit', {code, entryMethod});
             }
         },
         mounted() {
@@ -52,6 +33,7 @@
                 theme: this.themePath,
                 mode: this.modePath,
                 tabSize: 4,
+                readOnly: true,
                 autoScrollEditorIntoView: true,
             });
             editor.setOptions({
@@ -59,16 +41,9 @@
                 enableBasicAutocompletion: true,
                 enableLiveAutocompletion: true
             });
-            // editor.setKeyboardHandler('ace/keyboard/vim');
             this.aceEditor = editor;
-            codingService.getTemplate(this.title, this.language, response => {
-                let template = response.data.body.template;
-                let entryMethod = response.data.body.entryMethod;
-                this.codeTemplate = template;
-                this.entryMethod = entryMethod;
-                editor.setValue(template);
-                editor.resize();
-            })
+            editor.setValue(this.code);
+            editor.resize();
         },
     }
 </script>

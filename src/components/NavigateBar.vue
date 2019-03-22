@@ -22,9 +22,11 @@
             return {
                 commonTabs: [
                     {label: '主页', name: '/'},
-                    {label: '搜索', name: '/search'},
-                    {label: '编程', name: '/problem', requireSignIn: true},
-                    {label: '发布', name: '/publish-resource', requireSignIn: true},
+                    {label: '搜索资源', name: '/search'},
+                    {label: '在线编程', name: '/problem', requireSignIn: true},
+                    {label: '发布文章', name: '/publish-resource', requireSignIn: true},
+                    {label: '发布题目', name: '/publish-problem', requireSignIn: true},
+                    {label: '提交历史', name: '/submission', requireSignIn: true},
                 ],
                 activedTab: '/',
             }
@@ -37,8 +39,20 @@
         methods: {
             handleClick(tab, event) {
                 this.$router.push(this.activedTab);
-            }
+            },
+            checkPath() {
+                let currentPath = this.$route.path;
+                this.commonTabs.map(o => o.name).forEach(p => {
+                    this.activedTab = currentPath.includes(p) ? p : this.activedTab;
+                })
+            },
         },
+        watch: {
+            '$route': 'checkPath',
+        },
+        mounted() {
+            this.checkPath();
+        }
     }
 </script>
 

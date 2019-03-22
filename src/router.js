@@ -27,6 +27,11 @@ export default new Router({
             component: () => import('./views/Search')
         },
         {
+            path: '/search/:text',
+            // name: "search",
+            component: () => import('./views/Search')
+        },
+        {
             path: '/sign-in',
             component: () => import('./views/SignIn'),
             meta: {
@@ -66,7 +71,7 @@ export default new Router({
         },
         {
             path: '/publish-problem',
-            // component: () => import(''),
+            component: () => import('./views/PublishProblem'),
             meta: {
                 requireSignIn: true,
                 roles: ['ROLE_ADMIN'],
@@ -86,6 +91,14 @@ export default new Router({
         {
             path: '/access-denied',
             component: () => import('./views/AccessDenied'),
+        },
+        {
+            path: '/submission',
+            component: () => import('./views/Submission'),
+        },
+        {
+            path: '/submission/:submissionId',
+            component: () => import('./views/SubmissionDetail'),
         }
     ]
 })

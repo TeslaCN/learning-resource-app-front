@@ -4,7 +4,7 @@
             <el-header>
                 <navigate-bar></navigate-bar>
             </el-header>
-            <el-main>
+            <el-main :style="{padding: '0px 20px',}">
                 <router-view/>
             </el-main>
             <el-footer></el-footer>

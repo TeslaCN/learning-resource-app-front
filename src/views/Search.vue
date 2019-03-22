@@ -4,10 +4,10 @@
             <autocomplete-finder @confirm="query"/>
         </el-header>
         <el-main>
-            <result-view v-for="result in results" :key="result.resourceEntity.url" :item="result"/>
+            <result-view v-for="result in results" :key="result.resourceEntity.url" :item="result" :style="{marginBottom: '10px'}"/>
         </el-main>
         <el-footer>
-            <div class="block">
+            <div class="block" v-if="results.length > 0">
                 <el-pagination
                         @size-change="handleSizeChange"
                         @current-change="handleCurrentChange"

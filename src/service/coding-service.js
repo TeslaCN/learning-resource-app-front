@@ -1,6 +1,9 @@
 import ajax from '@/util/ajax'
 
 export default {
+    getProblemById(id, done) {
+        ajax.get(`/problem-id/${id}`, undefined, done);
+    },
     getProblem(title, done) {
         ajax.get(`/problem/${title}`, {}, done);
     },
@@ -12,5 +15,11 @@ export default {
     },
     getProblemList(page, pageSize, done) {
         ajax.get('/problem', {page: --page, pageSize}, done);
+    },
+    getSubmissions(userId, problemId = null, done) {
+        ajax.get('/submission', {userId, problemId}, done);
+    },
+    getSubmissionDetail(submissionId, done) {
+        ajax.get(`/submission/${submissionId}`, undefined, done);
     }
 }

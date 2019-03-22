@@ -38,11 +38,22 @@ new Vue({
         checkLogin() {
             console.info('Check login.')
         },
+        recommendSignIn() {
+            this.$notify({
+                title: '请登录',
+                message: '登录解锁更多功能🌚',
+                duration: 5000,
+                offset: 50
+            })
+        }
     },
     mounted() {
         persist.restoreToken();
         persist.restoreUserInfo();
-        this.checkLogin();
+        // this.checkLogin();
+        if (!this.$store.getters.isSignedIn) {
+            this.recommendSignIn();
+        }
     },
     watch: {
         // '$route': 'checkLogin',
