@@ -4,6 +4,7 @@
             <problem-view :prop-problem="problem"></problem-view>
             <el-row>
                 <el-select v-model="selectedLanguage" placeholder="编程语言">
+                    <el-option label="暂未支持其他语言" value="java"></el-option>
                     <el-option label="Java" value="java"></el-option>
                 </el-select>
                 <code-editor :language="selectedLanguage" @submit="onSubmit"></code-editor>

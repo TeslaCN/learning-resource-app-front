@@ -1,7 +1,7 @@
 <template>
     <el-row>
         <a v-if="item.highlights.title && item.highlights.title[0]" class="result-title"
-           @click="onClick(item.resourceEntity)" :href="item.resourceEntity.url" target="_blank">
+           @click="onClick(item.resourceEntity)" :href="item.resourceEntity.source === 'spider' ? item.resourceEntity.url : '#/resource/' + item.resourceEntity.id" target="_blank">
             <span v-html="item.highlights.title[0]"></span>
         </a>
         <a v-else class="result-title" @click="onClick(item.resourceEntity)" :href="item.resourceEntity.url"
@@ -41,7 +41,9 @@
     em {
         color: red;
     }
-
+    .result-title {
+        /*text-decoration-line: blink;*/
+    }
     .result-url {
         text-decoration: none;
     }

@@ -8,6 +8,7 @@
                     @select="handleSelect"
                     :select-when-unmatched="true"
                     :trigger-on-focus="false"
+                    autofocus
                     clearable
             ></el-autocomplete>
         </el-tooltip>

@@ -21,5 +21,14 @@ export default {
     },
     getSubmissionDetail(submissionId, done) {
         ajax.get(`/submission/${submissionId}`, undefined, done);
+    },
+    postProblem(newProblem, done) {
+        let options = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: JSON.stringify(newProblem),
+        };
+        ajax.request('POST', '/problem', null, null, options, done);
     }
 }

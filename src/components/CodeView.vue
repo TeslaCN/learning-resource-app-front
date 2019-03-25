@@ -25,25 +25,35 @@
                 modePath: 'ace/mode/java',
             }
         },
+        watch: {
+            code() {
+                this.newEditorAndSet();
+            }
+        },
+        methods: {
+            newEditorAndSet() {
+                let editor = ace.edit(this.$refs.ace, {
+                    maxLines: 1024,
+                    minLines: 10,
+                    fontSize: 14,
+                    theme: this.themePath,
+                    mode: this.modePath,
+                    tabSize: 4,
+                    readOnly: true,
+                    autoScrollEditorIntoView: true,
+                });
+                editor.setOptions({
+                    enableSnippets: true,
+                    enableBasicAutocompletion: true,
+                    enableLiveAutocompletion: true
+                });
+                this.aceEditor = editor;
+                editor.setValue(this.code);
+                editor.resize();
+            }
+        },
         mounted() {
-            let editor = ace.edit(this.$refs.ace, {
-                maxLines: 1024,
-                minLines: 10,
-                fontSize: 14,
-                theme: this.themePath,
-                mode: this.modePath,
-                tabSize: 4,
-                readOnly: true,
-                autoScrollEditorIntoView: true,
-            });
-            editor.setOptions({
-                enableSnippets: true,
-                enableBasicAutocompletion: true,
-                enableLiveAutocompletion: true
-            });
-            this.aceEditor = editor;
-            editor.setValue(this.code);
-            editor.resize();
+            this.newEditorAndSet();
         },
     }
 </script>

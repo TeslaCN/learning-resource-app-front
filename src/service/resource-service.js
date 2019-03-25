@@ -5,7 +5,6 @@ export default {
         ajax.get(`/resource/${resourceId}`, null, done);
     },
     postResource(resource, done) {
-        // ajax.post('/resource', resource, done);
         let options = {
             headers: {
                 'Content-Type': 'application/json',

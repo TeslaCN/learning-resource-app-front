@@ -1,8 +1,6 @@
 <template>
     <div>
         <div ref="ace"></div>
-        <el-input v-model="entryMethod" style="display: none;"></el-input>
-        <el-button type="primary" @click="submit" :disabled="submitted">提交</el-button>
     </div>
 </template>
 
@@ -15,10 +13,9 @@
     import 'ace-builds/src-noconflict/snippets/java'
     import 'ace-builds/src-noconflict/ext-error_marker'
     import 'ace-builds/src-noconflict/keybinding-vim'
-    import codingService from '@/service/coding-service'
 
     export default {
-        name: "CodeEditor",
+        name: "PureCodeEditor",
         props: {
             language: String,
         },
@@ -27,23 +24,13 @@
                 aceEditor: null,
                 themePath: 'ace/theme/chrome',
                 modePath: 'ace/mode/java',
-                codeTemplate: '',
-                entryMethod: '',
-                submitted: false,
             }
         },
         computed: {
-            title() {
-                return this.$route.params.title;
-            },
         },
-
         methods: {
-            submit() {
-                let code = this.aceEditor.getValue();
-                let entryMethod = this.entryMethod;
-                this.$emit('submit', {code, entryMethod});
-                this.submitted = true;
+            useValue() {
+                this.$emit('code', this.aceEditor.getValue());
             }
         },
         mounted() {
@@ -63,14 +50,6 @@
             });
             // editor.setKeyboardHandler('ace/keyboard/vim');
             this.aceEditor = editor;
-            codingService.getTemplate(this.title, this.language, response => {
-                let template = response.data.body.template;
-                let entryMethod = response.data.body.entryMethod;
-                this.codeTemplate = template;
-                this.entryMethod = entryMethod;
-                editor.setValue(template);
-                editor.resize();
-            })
         },
     }
 </script>

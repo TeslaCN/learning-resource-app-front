@@ -1,5 +1,5 @@
 <template>
-    <div v-if="problem">
+    <div v-if="problem" v-loading="loadingProblem">
         <h2>{{problem.title}}</h2>
         <p v-html="problem.description"></p>
     </div>
@@ -16,15 +16,27 @@
         },
         data() {
             return {
+                loadingProblem: false,
                 problem: this.propProblem,
             }
         },
-        methods: {},
-        mounted() {
-            if (!this.propProblem && this.id) {
+        methods: {
+            loadProblemById() {
+                this.loadingProblem = true;
                 codingService.getProblemById(this.id, response => {
                     this.problem = response.data.body;
+                    this.loadingProblem = false;
                 });
+            },
+        },
+        watch: {
+            id() {
+                this.loadProblemById();
+            }
+        },
+        mounted() {
+            if (!this.propProblem && this.id) {
+                this.loadProblemById();
             }
         }
     }
