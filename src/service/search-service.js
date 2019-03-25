@@ -12,5 +12,8 @@ export default {
     },
     getTermSuggestions(text, done) {
         ajax.get('/search/term-suggestions', {text}, done);
+    },
+    queryTermTags(tags, page, size, done, rejected, finallyMethod) {
+        ajax.postBody(`/search/query-term-tags?page=${--page}&size=${size}`, tags, done, rejected, finallyMethod);
     }
 }

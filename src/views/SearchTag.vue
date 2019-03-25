@@ -4,7 +4,10 @@
             <tag-finder @change="onChange"></tag-finder>
         </el-header>
         <el-main>
+            <h3>相关编程题</h3>
             <problem-list :prop-problems="problems"></problem-list>
+            <h3>相关文章</h3>
+            <resource-list :tags="tags"></resource-list>
         </el-main>
     </el-container>
 </template>
@@ -13,10 +16,11 @@
     import tagFinder from '@/components/TagFinder'
     import problemList from '@/components/ProblemList'
     import codingService from '@/service/coding-service'
+    import resourceList from '@/components/ResourceList'
 
     export default {
         name: "SearchTag",
-        components: {tagFinder, problemList},
+        components: {tagFinder, problemList, resourceList},
         data() {
             return {
                 tags: [],

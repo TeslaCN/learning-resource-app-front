@@ -7,6 +7,7 @@
             </div>
             <div>
                 <el-pagination
+                        v-if="total > 0"
                         @size-change="getList"
                         @current-change="getList"
                         :current-page="page"
