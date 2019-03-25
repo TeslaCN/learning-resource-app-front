@@ -12,6 +12,7 @@
                     clearable
             ></el-autocomplete>
         </el-tooltip>
+        <el-button type="primary" icon="el-icon-search" @click="handleSelect({value: input})">搜索</el-button>
         <div v-if="correctionSuggestions.length > 0">
             您是不是要找:
             <el-tag v-for="s in correctionSuggestions" :key="s"><a @click="tagClicked(s)">{{s}}</a></el-tag>

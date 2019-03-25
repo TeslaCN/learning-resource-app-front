@@ -95,10 +95,27 @@ export default new Router({
         {
             path: '/submission',
             component: () => import('./views/Submission'),
+            meta: {
+                requireSignIn: true,
+            }
         },
         {
             path: '/submission/:submissionId',
             component: () => import('./views/SubmissionDetail'),
+            meta: {
+                requireSignIn: true,
+            }
+        },
+        {
+            path: '/browse-history',
+            component: () => import('./views/BrowseHistory'),
+            meta: {
+                requireSignIn: true,
+            }
+        },
+        {
+            path: '/search-tag',
+            component: () => import('./views/SearchTag'),
         }
     ]
 })

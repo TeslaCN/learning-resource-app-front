@@ -3,6 +3,7 @@
         <el-main>
             <div v-for="p in problems">
                 <router-link :to="problemUrlPrefix + p.title"><span>{{p.title}}</span></router-link>
+                <problem-tag-view :problem-id="p.id"></problem-tag-view>
             </div>
             <div>
                 <el-pagination
@@ -21,9 +22,14 @@
 
 <script>
     import codingService from '@/service/coding-service'
+    import problemTagView from './ProblemTagView'
 
     export default {
         name: "ProblemList",
+        components: {problemTagView},
+        props: {
+            propProblems: Array,
+        },
         data() {
             return {
                 problemUrlPrefix: '/problem/',
@@ -31,7 +37,11 @@
                 page: 1,
                 pageSize: 10,
                 pageSizes: [10, 50, 100],
-                total: 0,
+            }
+        },
+        computed: {
+            total() {
+                return this.problems.length;
             }
         },
         methods: {
@@ -44,7 +54,11 @@
             },
         },
         mounted() {
-            this.getList();
+            if (!this.propProblems) {
+                this.getList();
+            } else {
+                this.problems = this.propProblems;
+            }
         }
     }
 </script>

@@ -21,12 +21,14 @@
         data() {
             return {
                 commonTabs: [
-                    {label: '主页', name: '/'},
                     {label: '搜索资源', name: '/search'},
-                    {label: '在线编程', name: '/problem', requireSignIn: true},
+                    {label: '热门标签', name: '/'},
+                    {label: '标签分类', name: '/search-tag'},
+                    {label: '浏览历史', name: '/browse-history', requireSignIn:true},
                     {label: '发布文章', name: '/publish-resource', requireSignIn: true},
-                    {label: '发布题目', name: '/publish-problem', requireSignIn: true},
+                    {label: '在线编程', name: '/problem', requireSignIn: true},
                     {label: '提交历史', name: '/submission', requireSignIn: true},
+                    {label: '发布题目', name: '/publish-problem', requireSignIn: true},
                 ],
                 activedTab: '/',
             }

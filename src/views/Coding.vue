@@ -7,6 +7,7 @@
                     <el-option label="暂未支持其他语言" value="java"></el-option>
                     <el-option label="Java" value="java"></el-option>
                 </el-select>
+                <el-alert title="请保持类修饰符、顺序位置、模板原有入口方法签名等不变，可以在类中添加其他方法，无需编写main方法" type="info" show-icon></el-alert>
                 <code-editor :language="selectedLanguage" @submit="onSubmit"></code-editor>
             </el-row>
         </el-main>

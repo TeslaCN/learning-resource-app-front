@@ -16,19 +16,19 @@ export default {
     getProblemList(page, pageSize, done) {
         ajax.get('/problem', {page: --page, pageSize}, done);
     },
-    getSubmissions(userId, problemId = null, done) {
-        ajax.get('/submission', {userId, problemId}, done);
+    getSubmissions(userId, problemId = null, done, rejected, finallyMethod) {
+        ajax.get('/submission', {userId, problemId}, done, rejected, finallyMethod);
     },
     getSubmissionDetail(submissionId, done) {
         ajax.get(`/submission/${submissionId}`, undefined, done);
     },
     postProblem(newProblem, done) {
-        let options = {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            data: JSON.stringify(newProblem),
-        };
-        ajax.request('POST', '/problem', null, null, options, done);
-    }
+        ajax.postBody('/problem', newProblem, done);
+    },
+    getProblemTags(problemId, done, rejected, finallyMethod) {
+        ajax.get('/problem-tags', {problemId}, done, rejected, finallyMethod);
+    },
+    getProblemsByTags(tags, done, rejected, finallyMethod) {
+        ajax.postBody('/problem-by-tags', tags, done, rejected, finallyMethod);
+    },
 }

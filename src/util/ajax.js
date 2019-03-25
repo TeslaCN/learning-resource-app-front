@@ -23,6 +23,19 @@ export default {
         ];
         this.request('POST', url, null, data, {transformRequest}, succeed, rejected, finallyMethod);
     },
+    postBody(url, object, succeed = d => {
+        console.warn('Unused response.')
+    }, rejected = e => {
+    }, finallyMethod = () => {
+    }) {
+        let options = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: JSON.stringify(object),
+        };
+        this.request('POST', url, null, null, options, succeed, rejected, finallyMethod);
+    },
 
     request(method, url, params, data, options, succeed = d => {
         console.warn('Unused response.')

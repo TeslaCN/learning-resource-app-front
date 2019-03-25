@@ -8,8 +8,8 @@
             default-first-option
             placeholder="请选择标签">
         <el-option
-                v-for="item in options"
-                :key="item.value"
+                v-for="(item, index) in options"
+                :key="index"
                 :label="item.label"
                 :value="item.value">
         </el-option>
@@ -30,7 +30,7 @@
             fetchTags() {
                 resourceService.getAllTags(response => {
                     let tags = response.data.body;
-                    let tagObjects = tags.map(t => {
+                    let tagObjects = [...new Set(tags)].map(t => {
                         return {value: t, label: t}
                     });
                     this.options.push(...tagObjects);

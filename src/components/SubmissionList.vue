@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-alert title="屏幕宽度不够时，请使用滚轮或者滚动条向右滚动表格内容。" type="info" show-icon></el-alert>
-        <el-table :data="submissions" :row-class-name="rowClassName">
+        <el-table :data="submissions" :row-class-name="rowClassName" v-loading="loading">
             <el-table-column fixed label="操作" width="70">
                 <template slot-scope="scope">
                     <el-button type="text" size="small" @click="onClick(scope.row)">查看详细</el-button>
@@ -11,9 +11,6 @@
             <el-table-column label="语言" prop="language" width="60"></el-table-column>
             <el-table-column label="运行结果" width="90">
                 <template slot-scope="scope">
-                    <!--<el-tag v-if="scope.row.accepted" type="success">运行通过</el-tag>-->
-                    <!--<el-tag v-else-if="!scope.row.compileSuccess" type="danger">编译出错</el-tag>-->
-                    <!--<el-tag v-else-if="scope.row.compileSuccess&&!scope.row.accepted" type="warning">编译通过</el-tag>-->
                     <el-tag v-if="!scope.row.judged">未评判</el-tag>
                     <el-tag v-else-if="scope.row.accepted">运行通过</el-tag>
                     <el-tag v-else-if="!scope.row.compileSuccess">编译出错</el-tag>
@@ -40,6 +37,7 @@
         name: "SubmissionList",
         data() {
             return {
+                loading: false,
                 submissions: [],
             }
         },
@@ -48,9 +46,12 @@
                 return !row.judged ? '' : row.accepted ? 'success-row' : row.compileSuccess ? 'warning-row' : 'error-row'
             },
             getSubmissions(userId, problemId) {
+                this.loading = true;
                 codingService.getSubmissions(userId, problemId, response => {
                     this.submissions.length = 0;
                     this.submissions.push(...response.data.body.reverse());
+                }, undefined, () => {
+                    this.loading = false;
                 });
             },
             onClick(row) {

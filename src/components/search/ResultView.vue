@@ -7,6 +7,8 @@
         <a v-else class="result-title" @click="onClick(item.resourceEntity)" :href="item.resourceEntity.url"
            target="_blank">{{item.resourceEntity.title}}</a>
         <br>
+        <el-tag v-for="(tag, index) in item.resourceEntity.tag" :key="index" size="mini">{{tag}}</el-tag>
+        <br>
         <a class="result-url" @click="onClick(item.resourceEntity)" :href="item.resourceEntity.url" target="_blank">{{item.resourceEntity.url}}</a>
         <div v-for="values in item.highlights">
             <span v-for="value in values" v-html="value"></span>
@@ -23,12 +25,18 @@
             return {};
         },
         computed: {
+            isSignedIn(){
+                return this.$store.getters.isSignedIn;
+            }
         },
         methods: {
             onClick(entity) {
-                let url = entity.url;
+                if (!this.isSignedIn) {
+                    return;
+                }
                 let external = entity.source === 'spider';
-                userService.postHistory(url, external, response => {
+                let url = external ? entity.url : entity.id;
+                userService.postHistory(entity.title, url, external, response => {
                     console.log('Record: ' + url);
                 });
             }

@@ -1,5 +1,8 @@
 <template>
     <el-container v-loading="loading">
+        <el-header>
+            <el-alert title="登录解锁更多功能🌚" type="info" show-icon></el-alert>
+        </el-header>
         <el-main>
             <el-form ref="form" :model="form" label-width="100px">
                 <el-form-item label="账号">
@@ -9,7 +12,7 @@
                     <el-input v-model="form.password" type="password"></el-input>
                 </el-form-item>
                 <el-form-item label="记住我">
-                    <el-switch v-model="form.remember"></el-switch>
+                    <el-switch v-model="form.remember" inactive-text="1小时" active-text="30天"></el-switch>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit">登录</el-button>
@@ -48,9 +51,12 @@
                             let userInfo = payload.USER;
                             this.$store.commit('updateUserInfo', {userInfo});
                         }
-                        this.loading = false;
                         this.$router.back();
                     }
+                }, reason => {
+                    this.$message('登录失败！用户不存在或密码错误');
+                }, () => {
+                    this.loading = false;
                 });
             }
         }

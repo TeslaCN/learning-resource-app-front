@@ -50,7 +50,9 @@
             }
         },
         mounted() {
-            this.loadProblem(this.submission.problemId);
+            if (this.submission) {
+                this.loadProblem(this.submission.problemId);
+            }
         }
     }
 </script>
