@@ -4,6 +4,9 @@
             <autocomplete-finder @confirm="query"/>
         </el-header>
         <el-main>
+            <div v-if="tookInMillis >= 0">
+                <span>搜索耗时: </span><strong>{{tookInMillis / 1000}}</strong><span>秒</span><br>
+            </div>
             <result-view v-for="result in results" :key="result.resourceEntity.url" :item="result" :style="{marginBottom: '10px'}"/>
         </el-main>
         <el-footer>
@@ -34,6 +37,7 @@
             return {
                 text: '',
                 results: [],
+                tookInMillis: -1,
                 currentPage: 1,
                 total: 0,
                 pageSize: 10,
@@ -47,6 +51,7 @@
                 searchService.getMatch(text, response => {
                     this.results.push(...response.data.body.searchResults);
                     this.total = response.data.body.total;
+                    this.tookInMillis = response.data.body.tookInMillis;
                 }, page, size);
             },
             handleSizeChange(val) {
